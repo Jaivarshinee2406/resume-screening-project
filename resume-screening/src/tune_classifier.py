@@ -1,10 +1,3 @@
-"""
-tune_classifier.py
-------------------
-Improves on train_classifier.py by trying out many combinations of
-settings (hyperparameters) and automatically keeping the best one.
-"""
-
 import re
 import time
 import pandas as pd
