@@ -1,19 +1,3 @@
-"""
-compare_models.py
-------------------
-Trains three different algorithms on the same features and compares
-them head-to-head:
-    1. Logistic Regression
-    2. Random Forest
-    3. LinearSVC (a type of Support Vector Machine)
-
-Whichever one scores highest (by macro F1) on the test set gets saved
-to models/ as the model the app will use.
-
-Uses the best TF-IDF settings found so far:
-    max_features=8000, ngram_range=(1,3), sublinear_tf=True
-"""
-
 import re
 import time
 import pandas as pd
@@ -85,7 +69,6 @@ def main():
     for name, r in results.items():
         print(f"{name:15s} accuracy={r['acc']:.2%}   macro_f1={r['f1']:.3f}")
 
-    # Pick the winner by macro F1 (fairer than raw accuracy given imbalance)
     best_name = max(results, key=lambda n: results[n]["f1"])
     best_model = results[best_name]["model"]
     print(f"\nWinner: {best_name} (macro_f1={results[best_name]['f1']:.3f})")
