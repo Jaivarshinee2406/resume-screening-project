@@ -1,9 +1,3 @@
-"""
-resume_parser.py
------------------
-Extracts plain text from uploaded resume files (PDF, DOCX, or TXT).
-"""
-
 import pdfplumber
 import docx
 
@@ -28,10 +22,6 @@ def extract_text_from_txt(file) -> str:
 
 
 def extract_resume_text(uploaded_file) -> str:
-    """
-    uploaded_file: a Streamlit UploadedFile object (has .name and behaves
-    like a file object).
-    """
     name = uploaded_file.name.lower()
     if name.endswith(".pdf"):
         return extract_text_from_pdf(uploaded_file)
