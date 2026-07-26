@@ -1,20 +1,3 @@
-"""
-ats_scoring.py
----------------
-Computes an "ATS score" for a resume against a job description, similar
-to how real Applicant Tracking Systems evaluate resumes:
-
-    1. Keyword Match (45%)     - do the important terms from the JD
-                                  actually appear in the resume?
-    2. Section Completeness (20%) - does the resume have standard
-                                  sections (contact info, education,
-                                  experience, skills)?
-    3. Job Category Fit (20%)  - using the trained classifier, does the
-                                  resume's predicted category match the
-                                  job description's predicted category?
-    4. Formatting (15%)       - reasonable length, uses bullet points.
-"""
-
 import re
 
 
