@@ -1,17 +1,3 @@
-"""
-tune_random_forest.py
------------------------
-A final, focused tuning pass specifically on Random Forest (your best
-model so far), searching across tree count, depth, and split settings
-to see how close we can get to 80% accuracy.
-
-Uses RandomizedSearchCV, which - unlike GridSearchCV - doesn't try
-every single combination. Instead it randomly samples a fixed number
-of combinations (n_iter=25 below). This covers a wider range of
-settings in less time, which matters here since Random Forest is
-slower to train than the linear models.
-"""
-
 import re
 import time
 import pandas as pd
@@ -63,7 +49,7 @@ def main():
     search = RandomizedSearchCV(
         pipeline,
         param_distributions,
-        n_iter=25,          # try 25 random combinations instead of every one
+        n_iter=25,         
         cv=3,
         scoring="f1_macro",
         n_jobs=-1,
