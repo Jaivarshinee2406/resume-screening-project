@@ -1,20 +1,3 @@
-"""
-app.py
-------
-The web app (Streamlit UI) for the AI Resume Screening & Candidate
-Ranking System.
-
-What it does:
-1. Recruiter pastes in a Job Description.
-2. The app predicts which job Category that description belongs to.
-3. The app compares the Job Description against every resume (within
-   that category, or across all resumes) using TF-IDF + cosine
-   similarity, and ranks candidates from most to least relevant.
-
-Run with:  streamlit run app.py
-(Make sure you've already run: python src/train_classifier.py)
-"""
-
 import re
 import pandas as pd
 import joblib
@@ -48,7 +31,6 @@ def load_resumes(_vectorizer):
     return df, resume_vectors
 
 
-# ---------- Load everything once ----------
 model, vectorizer = load_model()
 resumes_df, resume_vectors = load_resumes(vectorizer)
 
@@ -58,7 +40,6 @@ st.write(
     "and rank the most relevant resumes from the dataset."
 )
 
-# ---------- Sidebar controls ----------
 st.sidebar.header("Settings")
 top_n = st.sidebar.slider("How many top candidates to show?", 3, 20, 10)
 
@@ -69,7 +50,6 @@ category_choice = st.sidebar.selectbox(
     "Restrict search to a category:", category_options
 )
 
-# ---------- Main input ----------
 job_description = st.text_area(
     "Job Description",
     height=200,
@@ -83,11 +63,9 @@ if st.button("Find Best Candidates", type="primary"):
         cleaned_jd = clean_text(job_description)
         jd_vector = vectorizer.transform([cleaned_jd])
 
-        # Step 1: Predict the category of the job description
         predicted_category = model.predict(jd_vector)[0]
         st.success(f"Predicted job category: **{predicted_category}**")
 
-        # Step 2: Decide which resumes to search over
         if category_choice == "Auto-detect from job description":
             search_category = predicted_category
         else:
@@ -100,7 +78,6 @@ if st.button("Find Best Candidates", type="primary"):
         if filtered_df.empty:
             st.warning("No resumes found in this category.")
         else:
-            # Step 3: Rank by cosine similarity to the job description
             similarities = cosine_similarity(jd_vector, filtered_vectors).flatten()
             filtered_df["match_score"] = (similarities * 100).round(2)
             ranked = filtered_df.sort_values("match_score", ascending=False).head(top_n)
