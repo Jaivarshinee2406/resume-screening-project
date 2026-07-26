@@ -1,24 +1,3 @@
-"""
-train_embeddings.py
---------------------
-Upgrades the resume classifier to use sentence embeddings instead of
-TF-IDF. Embeddings come from a small pretrained language model
-(all-MiniLM-L6-v2) that understands word meaning and context, not just
-which words appear - this usually captures more nuance than TF-IDF.
-
-What this does:
-1. Downloads a small pretrained model (~90MB, one-time, needs internet)
-2. Converts every resume into a 384-number "embedding" vector
-3. Trains RandomForest and LinearSVC on these embeddings and compares them
-4. Saves the winning classifier AND the embeddings for every resume
-   (so the app doesn't have to re-encode all 2500 resumes every time
-   someone submits a job description - only the new JD needs encoding)
-
-Note: the first time you run this, sentence-transformers downloads the
-pretrained model automatically. This needs an internet connection and
-may take a minute or two depending on your connection.
-"""
-
 import time
 import pandas as pd
 import joblib
