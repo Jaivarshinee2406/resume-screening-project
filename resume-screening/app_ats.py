@@ -1,22 +1,3 @@
-"""
-app_ats.py
------------
-Upload one or more resumes (PDF, DOCX, or TXT) and paste a job
-description. The app tells you, for each resume:
-    1. Whether its predicted job category matches the JD
-    2. An overall ATS Score (0-100) estimating how well an Applicant
-       Tracking System might rate it for this specific role
-    3. A breakdown of that score
-    4. Which important keywords from the JD are missing
-
-When multiple resumes are uploaded, they're ranked from best to worst
-match so you can quickly compare candidates.
-
-Run with:  streamlit run app_ats.py
-(Requires models/classifier.pkl and models/vectorizer.pkl - run
-src/compare_models.py first if they don't exist yet.)
-"""
-
 import sys
 import os
 import joblib
@@ -97,7 +78,6 @@ if st.button("Check ATS Score(s)", type="primary"):
             results.append(result)
 
         if results:
-            # Rank best to worst
             results.sort(key=lambda r: r["total_score"], reverse=True)
 
             if len(results) > 1:
